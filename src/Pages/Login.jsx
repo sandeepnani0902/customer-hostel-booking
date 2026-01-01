@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { authService } from '../services/authService'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Login.css'
 
@@ -12,6 +14,7 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
   const validateForm = () => {
     const newErrors = {}
@@ -43,10 +46,20 @@ const Login = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (validateForm()) {
-      console.log('Login submitted:', formData)
+      setIsLoading(true)
+      try {
+        await authService.authenticate(formData.email, formData.password)
+        toast.success('Login successful!')
+        navigate('/home')
+      } catch (error) {
+        toast.error(error.message || 'Login failed. Please check your credentials.')
+        setErrors({ password: 'Invalid email or password' })
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -93,13 +106,20 @@ const Login = () => {
                   <div className="error-message">{errors.password || ''}</div>
                 </div>
                 
-                <button type="submit" className="btn btn-login w-100">
-                  Sign In
+                <button type="submit" className="btn btn-login w-100" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Signing In...
+                    </>
+                  ) : (
+                    'Sign In'
+                  )}
                 </button>
               </form>
               
               <div className="login-footer">
-                Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); navigate('/signup'); }}>Sign Up</a>
+                Don't have an account? <button type="button" className="btn btn-link p-0" onClick={() => navigate('/signup')}>Sign Up</button>
               </div>
             </div>
           </div>

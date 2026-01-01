@@ -1,0 +1,48 @@
+.flipkart-carousel-container {
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+  position: relative;
+  cursor: pointer;
+}
+
+.flipkart-carousel {
+  display: flex;
+  width: 600%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.flipkart-item {
+  flex: 0 0 16.666%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.flipkart-item:hover {
+  transform: scale(1.02);
+}
+
+.flipkart-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.flipkart-carousel-container:hover .flipkart-carousel {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .flipkart-carousel-container {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .flipkart-carousel-container {
+    height: 120px;
+  }
+}

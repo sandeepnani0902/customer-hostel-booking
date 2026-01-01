@@ -1,0 +1,20 @@
+.hostel-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hostel-card:hover {
+  transform: scale(1.05);
+}
+
+.filter-btn {
+  transition: all 0.2s ease;
+}
+
+.filter-arrow {
+  transition: transform 0.3s ease;
+}
+
+.filter-arrow.rotate {
+  transform: rotate(90deg);
+}

@@ -70,7 +70,8 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validateForm()) {
-      console.log('Form submitted:', formData)
+      // TODO: Implement signup API call
+      navigate('/login')
     }
   }
 
@@ -173,7 +174,7 @@ const Signup = () => {
         </form>
         
         <div className="signup-footer">
-          Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Sign In</a>
+          Already have an account? <button type="button" className="btn btn-link p-0" onClick={() => navigate('/')}>Sign In</button>
         </div>
       </div>
     </div>
